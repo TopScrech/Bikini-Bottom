@@ -1,6 +1,8 @@
 # Bikini Bottom
 
-Classifies images in 3 categories: regular, bikini & NSFW
+CoreML model for classifying images in 3 categories: regular, bikini & NSFW
+
+Check out my [Dickpic...](https://github.com/TopScrech/Dickpic) project that implements Apple's [SensitiveContentAnalysis](https://developer.apple.com/documentation/sensitivecontentanalysis) to find NSWR images & videos
 
 ## Available platforms
 - macOS 14+
