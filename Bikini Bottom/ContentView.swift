@@ -12,10 +12,14 @@ struct ContentView: View {
 #if os(macOS)
                 Image(nsImage: image)
                     .resizable()
+                    .clipShape(.rect(cornerRadius: 8))
+                    .scaledToFit()
                     .frame(200)
 #else
                 Image(uiImage: image)
                     .resizable()
+                    .clipShape(.rect(cornerRadius: 8))
+                    .scaledToFit()
                     .frame(200)
 #endif
             }
