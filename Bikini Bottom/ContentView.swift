@@ -4,14 +4,20 @@ import UniformTypeIdentifiers
 struct ContentView: View {
     @State private var vm = CoreVM()
     
-    @State private var image: NSImage? = nil
+    @State private var image: UniversalImage? = nil
     
     var body: some View {
         VStack {
             if let image {
+#if os(macOS)
                 Image(nsImage: image)
                     .resizable()
                     .frame(200)
+#else
+                Image(uiImage: image)
+                    .resizable()
+                    .frame(200)
+#endif
             }
             
             Text(vm.output)
@@ -31,15 +37,22 @@ struct ContentView: View {
             provider.loadItem(forTypeIdentifier: UTType.fileURL.identifier, options: nil) { urlData, error in
                 guard
                     let urlData = urlData as? Data,
-                    let url = URL(dataRepresentation: urlData, relativeTo: nil),
-                    let nsImage = NSImage(contentsOf: url)
+                    let url = URL(dataRepresentation: urlData, relativeTo: nil)
                 else {
                     return
                 }
-                
-                print(nsImage.size)
-                vm.test(nsImage)
-                image = nsImage
+#if os(macOS)
+                guard let uniImage = NSImage(contentsOf: url) else {
+                    return
+                }
+#else
+                guard let uniImage = UIImage(contentsOfFile: url.path) else {
+                    return
+                }
+#endif
+                print(uniImage.size)
+                vm.test(uniImage)
+                image = uniImage
                 // images.append(nsImage)
                 // processImage(nsImage)
             }

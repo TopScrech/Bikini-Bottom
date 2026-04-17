@@ -1,4 +1,4 @@
-import SwiftUI
+import ScrechKit
 import CoreVideo
 import OSLog
 
@@ -6,7 +6,7 @@ import OSLog
 final class CoreVM {
     var output = ""
     
-    func test(_ image: NSImage) {
+    func test(_ image: UniversalImage) {
         let marsHabitatPricer = try? Bikini_Bottom(configuration: .init())
         
         guard let pizels = pixelBuffer(from: image) else {
@@ -35,11 +35,16 @@ final class CoreVM {
         }
     }
     
-    func pixelBuffer(from image: NSImage) -> CVPixelBuffer? {
+    func pixelBuffer(from image: UniversalImage) -> CVPixelBuffer? {
+#if os(macOS)
         guard let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
             return nil
         }
-        
+#else
+        guard let cgImage = image.cgImage else {
+            return nil
+        }
+#endif
         let frameSize = CGSize(width: cgImage.width, height: cgImage.height)
         var pixelBuffer: CVPixelBuffer?
         
