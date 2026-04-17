@@ -6,6 +6,7 @@ Check out my [Dickpic...](https://github.com/TopScrech/Dickpic) project that imp
 
 ## Available platforms
 - macOS 14+
+- iOS 17+
 
 # How it works
 - Drag and drop an image
