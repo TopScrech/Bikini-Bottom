@@ -14,18 +14,17 @@ struct ContentView: View {
                     .resizable()
                     .clipShape(.rect(cornerRadius: 8))
                     .scaledToFit()
-                    .frame(200)
 #else
                 Image(uiImage: image)
                     .resizable()
                     .clipShape(.rect(cornerRadius: 8))
                     .scaledToFit()
-                    .frame(200)
 #endif
             }
             
             Text(vm.output)
         }
+        .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onDrop(of: [.fileURL], isTargeted: nil) {
             handleDrop($0)
